@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">enhanced-domotic</string>
+    
+    <string name="progress_dialog_load">Loading</string>
+    <string name="connection_error">Connection error</string>
+
+</resources>
