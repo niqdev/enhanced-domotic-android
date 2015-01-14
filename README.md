@@ -1,9 +1,9 @@
 # enhanced-domotic-android
 Android demo based on the following libraries:
 
-> [enhanced-domotic](https://github.com/niqdev/enhanced-domotic): Domotic library in Java.
+> [enhanced-domotic](https://github.com/niqdev/enhanced-domotic): Domotic library in Java
 
-> [AndroidAnnotations](https://github.com/excilys/androidannotations/wiki): Fast Android Development. Easy maintainance.
+> [AndroidAnnotations](https://github.com/excilys/androidannotations/wiki): Fast Android Development and Easy maintainance
 
 > [OrmLite](http://ormlite.com/): Lightweight Object Relational Mapping (ORM) Java Package
 
