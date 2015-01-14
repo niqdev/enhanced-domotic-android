@@ -1,5 +1,6 @@
 # enhanced-domotic-android
-Android Demo based on the following libraries:
+Android demo based on the following libraries:
+
 > [enhanced-domotic](https://github.com/niqdev/enhanced-domotic): Domotic library in Java.
 
 > [AndroidAnnotations](https://github.com/excilys/androidannotations/wiki): Fast Android Development. Easy maintainance.
