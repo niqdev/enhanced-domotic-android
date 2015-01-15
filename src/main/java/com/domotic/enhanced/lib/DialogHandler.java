@@ -1,7 +1,5 @@
 package com.domotic.enhanced.lib;
 
-import java.util.List;
-
 import org.androidannotations.annotations.EBean;
 import org.androidannotations.annotations.RootContext;
 import org.androidannotations.annotations.UiThread;
@@ -13,10 +11,13 @@ import android.content.Context;
 import android.widget.Toast;
 
 import com.domotic.enhanced.R;
-import com.domotic.enhanced.client.Handler;
+import com.domotic.enhanced.client.LogHandler;
+import com.domotic.enhanced.client.Request;
+import com.domotic.enhanced.client.Response;
 
 @EBean
-public class DialogHandler implements Handler {
+@SuppressWarnings({"rawtypes", "unchecked"})
+public class DialogHandler extends LogHandler {
   
   @RootContext
   Context context;
@@ -30,17 +31,20 @@ public class DialogHandler implements Handler {
   private ProgressDialog progressDialog;
   
   @Override
-  public void onValidation(List<?> values) {
+  public void onValidation(Request request) {
+    super.onValidation(request);
     showLoading(msgProgressLoading);
   }
 
   @Override
-  public void onSuccess(List<?> values) {
+  public void onSuccess(Request request, Response response) {
+    super.onSuccess(request, response);
     hideLoading();
   }
 
   @Override
   public void onError(Exception e) {
+    super.onError(e);
     hideLoading();
     showError(msgConnectionError);
   }
