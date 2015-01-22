@@ -17,7 +17,7 @@ import com.domotic.enhanced.EnhancedDomotic;
 import com.domotic.enhanced.preference.DomoticConfig;
 
 @EBean
-public class Light implements ILight {
+public class EnhancedLightImpl implements EnhancedLight {
   
   @Bean
   DomoticConfig config;

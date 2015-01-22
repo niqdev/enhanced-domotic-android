@@ -1,6 +1,6 @@
 package com.domotic.enhanced.lib;
 
-public interface ILight {
+public interface EnhancedLight {
   
   void turnOnAll();
   

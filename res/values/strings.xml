@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">enhanced-domotic</string>
-    
-    <string name="progress_dialog_load">Loading</string>
-    <string name="connection_error">Connection error</string>
+  <string name="app_name">Enhanced Domotic</string>
+  
+  <string name="progress_dialog_load">Loading</string>
+  <string name="connection_error">Connection error</string>
+  
+  <string name="drawer_open">Open navigation drawer</string>
+  <string name="drawer_close">Close navigation drawer</string>
 
 </resources>

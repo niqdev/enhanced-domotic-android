@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+  <string-array name="drawer_menu_array">
+    <item>Light</item>
+    <item>Preference</item>
+  </string-array>
+
+</resources>
