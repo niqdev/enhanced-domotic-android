@@ -8,7 +8,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import android.app.Activity;
-import android.app.FragmentManager;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v4.app.ActionBarDrawerToggle;
@@ -22,8 +21,8 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import com.domotic.enhanced.R;
-import com.domotic.enhanced.fragment.light.TestFragment;
-import com.domotic.enhanced.fragment.light.TestFragment_;
+import com.domotic.enhanced.fragment.light.LightFragment;
+import com.domotic.enhanced.fragment.light.LightFragment_;
 
 @EActivity(R.layout.activity_main)
 public class MainActivity extends Activity {
@@ -99,13 +98,17 @@ public class MainActivity extends Activity {
     log.debug("selectItem: {}", position);
     
     // TODO
-    //LightListFragment fragment = new LightListFragment_();
-    TestFragment fragment = new TestFragment_();
-    
+    LightFragment fragment = new LightFragment_();
+    /*
     FragmentManager fragmentManager = getFragmentManager();
     fragmentManager.beginTransaction().replace(R.id.content_frame, fragment).commit();
     //transaction.addToBackStack(null);
-
+    */
+    getFragmentManager()
+      .beginTransaction()
+      .replace(R.id.content_frame, fragment)
+      //.addToBackStack(null)
+      .commit();
     
     // update selected item and title, then close the drawer
     mDrawerList.setItemChecked(position, true);

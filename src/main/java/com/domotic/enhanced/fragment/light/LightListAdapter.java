@@ -18,15 +18,15 @@ import com.domotic.enhanced.repository.LightRepositoryMockImpl;
 
 @EBean
 public class LightListAdapter extends BaseAdapter {
-  
+
   private List<Light> items;
-  
+
   @Bean(LightRepositoryMockImpl.class)
   LightRepository repository;
-  
+
   @RootContext
   Context context;
-  
+
   @AfterInject
   void initAdapter() {
     items = repository.findAll();

@@ -24,7 +24,7 @@ public class LightItemView extends LinearLayout {
   }
   
   public void bind(Light light) {
-    idView.setText(light.getId());
+    //idView.setText(light.getId());
     descriptionView.setText(light.getDescription());
   }
 
