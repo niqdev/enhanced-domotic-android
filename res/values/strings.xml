@@ -2,11 +2,25 @@
 <resources>
 
   <string name="app_name">Enhanced Domotic</string>
+  <string name="activity_setting">Settings</string>
   
   <string name="progress_dialog_load">Loading</string>
   <string name="connection_error">Connection error</string>
   
   <string name="drawer_open">Open navigation drawer</string>
   <string name="drawer_close">Close navigation drawer</string>
-
+  
+  <!-- preference -->
+  <string name="preference_key_protocol">preference_protocol</string>
+  <string name="preference_key_host">preference_host</string>
+  <string name="preference_key_port">preference_port</string>
+  <string name="preference_title_main">Domotic Configuration</string>
+  <string name="preference_title_protocol">Protocol</string>
+  <string name="preference_title_host">Host</string>
+  <string name="preference_title_port">Port</string>
+  <string name="preference_bad_value">Value not allowed</string>
+  <string name="preference_default_protocol">OPENWEBNET</string>
+  <string name="preference_default_host">0.0.0.0</string>
+  <string name="preference_default_port">20000</string>
+  
 </resources>

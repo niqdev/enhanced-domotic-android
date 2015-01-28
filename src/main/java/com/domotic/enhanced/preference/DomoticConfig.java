@@ -1,7 +1,5 @@
 package com.domotic.enhanced.preference;
 
-import static com.domotic.enhanced.domain.Protocol.OPENWEBNET;
-
 import org.androidannotations.annotations.EBean;
 import org.androidannotations.annotations.RootContext;
 import org.androidannotations.annotations.sharedpreferences.Pref;
@@ -19,30 +17,20 @@ public class DomoticConfig implements Config {
   
   @Pref
   DomoticPreference_ preference;
-  
-  public void initHost(String host) {
-    preference.edit().host().put(host).apply();
-  }
-  
-  public void initPort(Integer port) {
-    preference.edit().port().put(port).apply();
-  }
 
   @Override
   public Protocol protocol() {
-    // TODO preference
-    return OPENWEBNET;
+    return Protocol.stringToEnum(preference.protocol().get());
   }
 
   @Override
   public String host() {
-    //return preference.host().get();
-    return "192.168.1.41";
+    return preference.host().get();
   }
 
   @Override
   public Integer port() {
-    return preference.port().get();
+    return Integer.valueOf(preference.port().get());
   }
 
   @Override

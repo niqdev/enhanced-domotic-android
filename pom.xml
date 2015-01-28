@@ -30,7 +30,7 @@
     <slf4j.version>1.7.9</slf4j.version>
     <ormlite-android.version>4.48</ormlite-android.version>
   </properties>
-  
+
   <repositories>
     <repository>
       <id>android-support</id>
@@ -112,6 +112,9 @@
       <artifactId>ormlite-android</artifactId>
       <version>${ormlite-android.version}</version>
     </dependency>
+
+    <!-- <dependency> <groupId>com.mobsandgeeks</groupId> <artifactId>android-saripaar</artifactId> 
+      <version>1.0.3</version> </dependency> -->
 
   </dependencies>
 

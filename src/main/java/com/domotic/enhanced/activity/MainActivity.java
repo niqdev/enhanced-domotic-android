@@ -21,8 +21,8 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import com.domotic.enhanced.R;
-import com.domotic.enhanced.fragment.light.LightFragment;
 import com.domotic.enhanced.fragment.light.LightFragment_;
+import com.domotic.enhanced.fragment.setting.SettingFragment_;
 
 @EActivity(R.layout.activity_main)
 public class MainActivity extends Activity {
@@ -98,17 +98,23 @@ public class MainActivity extends Activity {
     log.debug("selectItem: {}", position);
     
     // TODO
-    LightFragment fragment = new LightFragment_();
-    /*
-    FragmentManager fragmentManager = getFragmentManager();
-    fragmentManager.beginTransaction().replace(R.id.content_frame, fragment).commit();
-    //transaction.addToBackStack(null);
-    */
-    getFragmentManager()
-      .beginTransaction()
-      .replace(R.id.content_frame, fragment)
-      //.addToBackStack(null)
-      .commit();
+    switch (position) {
+    case 1:
+      getFragmentManager()
+        .beginTransaction()
+        .replace(R.id.content_frame, new LightFragment_())
+        //.addToBackStack(null)
+        .commit();
+      break;
+    case 2:
+      getFragmentManager()
+        .beginTransaction()
+        .replace(R.id.content_frame, new SettingFragment_())
+        //.addToBackStack(null)
+        .commit();
+      break;
+    }
+    
     
     // update selected item and title, then close the drawer
     mDrawerList.setItemChecked(position, true);

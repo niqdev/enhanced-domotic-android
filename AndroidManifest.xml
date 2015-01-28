@@ -22,6 +22,10 @@
         <category android:name="android.intent.category.LAUNCHER" />
       </intent-filter>
     </activity>
+    <activity
+      android:name="com.domotic.enhanced.activity.SettingActivity_"
+      android:label="@string/activity_setting"
+      android:parentActivityName="com.domotic.enhanced.activity.MainActivity_" />
   </application>
 
 </manifest>

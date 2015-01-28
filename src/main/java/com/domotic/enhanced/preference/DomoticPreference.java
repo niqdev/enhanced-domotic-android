@@ -1,18 +1,22 @@
 package com.domotic.enhanced.preference;
 
-import static org.androidannotations.annotations.sharedpreferences.SharedPref.Scope.UNIQUE;
+import static org.androidannotations.annotations.sharedpreferences.SharedPref.Scope.APPLICATION_DEFAULT;
 
-import org.androidannotations.annotations.sharedpreferences.DefaultInt;
-import org.androidannotations.annotations.sharedpreferences.DefaultString;
+import org.androidannotations.annotations.sharedpreferences.DefaultRes;
 import org.androidannotations.annotations.sharedpreferences.SharedPref;
 
-@SharedPref(UNIQUE)
+import com.domotic.enhanced.R;
+
+@SharedPref(APPLICATION_DEFAULT)
 public interface DomoticPreference {
   
-  @DefaultString("0.0.0.0")
+  @DefaultRes(value = R.string.preference_default_protocol, keyRes = R.string.preference_key_protocol)
+  String protocol();
+  
+  @DefaultRes(value = R.string.preference_default_host, keyRes = R.string.preference_key_host)
   String host();
   
-  @DefaultInt(20000)
-  int port();
+  @DefaultRes(value = R.string.preference_default_port, keyRes = R.string.preference_key_port)
+  String port();
   
 }

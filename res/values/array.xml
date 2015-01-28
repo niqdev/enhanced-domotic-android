@@ -2,8 +2,17 @@
 <resources>
 
   <string-array name="drawer_menu_array">
+    <item>Home</item>
     <item>Light</item>
-    <item>Preference</item>
+    <item>Settings</item>
+  </string-array>
+  
+  <string-array name="preference_protocol_keys">
+    <item>OpenWebNet</item>
+  </string-array>
+  
+  <string-array name="preference_protocol_values">
+    <item>OPENWEBNET</item>
   </string-array>
 
 </resources>

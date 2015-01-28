@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
+
+  <PreferenceCategory android:title="@string/preference_title_main">
+    <ListPreference
+      android:key="@string/preference_key_protocol"
+      android:title="@string/preference_title_protocol"
+      android:dialogTitle="@string/preference_title_protocol"
+      android:entries="@array/preference_protocol_keys"
+      android:entryValues="@array/preference_protocol_values"
+      android:defaultValue="@string/preference_default_protocol"
+      android:summary="%s" />
+    <EditTextPreference
+      android:key="@string/preference_key_host"
+      android:title="@string/preference_title_host"
+      android:dialogTitle="@string/preference_title_host"
+      android:defaultValue="@string/preference_default_host" />
+    <EditTextPreference
+      android:key="@string/preference_key_port"
+      android:title="@string/preference_title_port"
+      android:dialogTitle="@string/preference_title_port"
+      android:defaultValue="@string/preference_default_port" />
+  </PreferenceCategory>
+
+</PreferenceScreen>
