@@ -22,6 +22,7 @@ public class LightListAdapter extends BaseAdapter {
   private List<Light> items;
 
   @Bean(LightRepositoryMockImpl.class)
+  //@Bean(LightRepositoryImpl.class)
   LightRepository repository;
 
   @RootContext

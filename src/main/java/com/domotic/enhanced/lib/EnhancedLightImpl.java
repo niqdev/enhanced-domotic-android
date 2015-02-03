@@ -14,7 +14,6 @@ import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.EBean;
 
 import com.domotic.enhanced.EnhancedDomotic;
-import com.domotic.enhanced.preference.DomoticConfig;
 
 @EBean
 public class EnhancedLightImpl implements EnhancedLight {

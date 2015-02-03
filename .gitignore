@@ -12,3 +12,4 @@ gen/
 #.apt_generated/
 #.settings
 #/.apt_generated/
+/target/

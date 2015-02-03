@@ -1,0 +1,35 @@
+#
+# generated on 2015/02/02 10:40:10
+#
+# --table-start--
+dataClass=com.domotic.enhanced.model.Light
+tableName=device_light
+# --table-fields-start--
+# --field-start--
+fieldName=id
+dataPersister=LONG_OBJ
+generatedId=true
+useGetSet=true
+# --field-end--
+# --field-start--
+fieldName=deviceId
+dataPersister=INTEGER_OBJ
+width=255
+canBeNull=false
+useGetSet=true
+# --field-end--
+# --field-start--
+fieldName=name
+dataPersister=STRING
+width=255
+useGetSet=true
+# --field-end--
+# --field-start--
+fieldName=description
+dataPersister=STRING
+width=255
+useGetSet=true
+# --field-end--
+# --table-fields-end--
+# --table-end--
+#################################

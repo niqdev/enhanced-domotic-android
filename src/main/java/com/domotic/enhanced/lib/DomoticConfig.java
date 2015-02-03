@@ -1,4 +1,4 @@
-package com.domotic.enhanced.preference;
+package com.domotic.enhanced.lib;
 
 import org.androidannotations.annotations.EBean;
 import org.androidannotations.annotations.RootContext;
@@ -8,6 +8,7 @@ import android.content.Context;
 
 import com.domotic.enhanced.Config;
 import com.domotic.enhanced.domain.Protocol;
+import com.domotic.enhanced.preference.DomoticPreference_;
 
 @EBean
 public class DomoticConfig implements Config {
