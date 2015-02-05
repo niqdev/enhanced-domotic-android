@@ -23,8 +23,8 @@
       </intent-filter>
     </activity>
     <activity
-      android:name="com.domotic.enhanced.activity.SettingActivity_"
-      android:label="@string/activity_setting"
+      android:name="com.domotic.enhanced.activity.EditLightActivity_"
+      android:label="@string/activity_edit_light"
       android:parentActivityName="com.domotic.enhanced.activity.MainActivity_" />
   </application>
 

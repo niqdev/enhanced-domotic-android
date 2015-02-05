@@ -2,10 +2,12 @@ package com.domotic.enhanced.repository;
 
 import java.util.List;
 
-import com.domotic.enhanced.model.Light;
+import com.domotic.enhanced.model.LightModel;
 
 public interface LightRepository {
   
-  List<Light> findAll();
+  List<LightModel> findAll();
+  
+  void add(LightModel light);
 
 }

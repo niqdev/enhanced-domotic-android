@@ -9,7 +9,7 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 
 import com.domotic.enhanced.R;
-import com.domotic.enhanced.model.Light;
+import com.domotic.enhanced.model.LightModel;
 import com.j256.ormlite.android.apptools.OrmLiteSqliteOpenHelper;
 import com.j256.ormlite.support.ConnectionSource;
 import com.j256.ormlite.table.TableUtils;
@@ -29,7 +29,7 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
   public void onCreate(SQLiteDatabase database, ConnectionSource connectionSource) {
     try {
       log.info("onCreate");
-      TableUtils.createTable(connectionSource, Light.class);
+      TableUtils.createTable(connectionSource, LightModel.class);
     } catch (SQLException e) {
       log.error("Can't create database", e);
       throw new RuntimeException(e);
@@ -41,7 +41,7 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
       ConnectionSource connectionSource, int oldVersion, int newVersion) {
     try {
       log.info("onUpgrade");
-      TableUtils.dropTable(connectionSource, Light.class, true);
+      TableUtils.dropTable(connectionSource, LightModel.class, true);
       // after we drop the old databases, we create the new ones
       onCreate(database, connectionSource);
     } catch (SQLException e) {

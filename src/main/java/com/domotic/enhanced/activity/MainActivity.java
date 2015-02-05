@@ -97,6 +97,8 @@ public class MainActivity extends Activity {
     // TODO start fragment
     log.debug("selectItem: {}", position);
     
+    // TODO class by name
+    
     // TODO
     switch (position) {
     case 1:

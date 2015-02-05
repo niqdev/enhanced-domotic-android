@@ -5,6 +5,7 @@ import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 import org.apache.commons.lang3.builder.EqualsBuilder;
@@ -12,17 +13,17 @@ import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
-@Entity(name = "device_light")
-public class Light implements Serializable {
+@Entity(name = "T_DEVICE_LIGHT")
+public class LightModel implements Serializable {
   
-  private static final long serialVersionUID = 5956805037753013677L;
+  private static final long serialVersionUID = -3756680086090077366L;
 
-  public Light() {
+  public LightModel() {
     // needed by ormlite
   }
 
   @Id
-  @GeneratedValue//(strategy = GenerationType.AUTO)
+  @GeneratedValue(strategy = GenerationType.AUTO)
   private Long id;
   
   @Column(nullable = false)
@@ -76,11 +77,11 @@ public class Light implements Serializable {
       return false;
     } else if (object == this) {
       return true;
-    } else if (!(object instanceof Light)) {
+    } else if (!(object instanceof LightModel)) {
       return false;
     }
     
-    Light light = (Light) object;
+    LightModel light = (LightModel) object;
     return new EqualsBuilder()
       .append(id, light.id)
       .append(deviceId, light.deviceId)

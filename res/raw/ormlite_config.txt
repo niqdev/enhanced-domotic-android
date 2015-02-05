@@ -1,9 +1,9 @@
 #
-# generated on 2015/02/02 10:40:10
+# generated on 2015/02/05 06:36:42
 #
 # --table-start--
-dataClass=com.domotic.enhanced.model.Light
-tableName=device_light
+dataClass=com.domotic.enhanced.model.LightModel
+tableName=T_DEVICE_LIGHT
 # --table-fields-start--
 # --field-start--
 fieldName=id

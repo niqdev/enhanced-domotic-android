@@ -12,17 +12,17 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 
-import com.domotic.enhanced.model.Light;
+import com.domotic.enhanced.model.LightModel;
 import com.domotic.enhanced.repository.LightRepository;
-import com.domotic.enhanced.repository.LightRepositoryMockImpl;
+import com.domotic.enhanced.repository.LightRepositoryImpl;
 
 @EBean
 public class LightListAdapter extends BaseAdapter {
 
-  private List<Light> items;
+  private List<LightModel> items;
 
-  @Bean(LightRepositoryMockImpl.class)
-  //@Bean(LightRepositoryImpl.class)
+  //@Bean(LightRepositoryMockImpl.class)
+  @Bean(LightRepositoryImpl.class)
   LightRepository repository;
 
   @RootContext
@@ -39,7 +39,7 @@ public class LightListAdapter extends BaseAdapter {
   }
 
   @Override
-  public Light getItem(int position) {
+  public LightModel getItem(int position) {
     return items.get(position);
   }
 
@@ -58,6 +58,13 @@ public class LightListAdapter extends BaseAdapter {
     }
     itemView.bind(getItem(position));
     return itemView;
+  }
+
+  @Override
+  public void notifyDataSetChanged() {
+    // refresh list
+    initAdapter();
+    super.notifyDataSetChanged();
   }
 
 }

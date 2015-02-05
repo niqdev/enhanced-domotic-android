@@ -3,7 +3,7 @@ package com.domotic.enhanced.database;
 import java.io.IOException;
 import java.sql.SQLException;
 
-import com.domotic.enhanced.model.Light;
+import com.domotic.enhanced.model.LightModel;
 import com.j256.ormlite.android.apptools.OrmLiteConfigUtil;
 
 /**
@@ -13,7 +13,7 @@ import com.j256.ormlite.android.apptools.OrmLiteConfigUtil;
 public class DatabaseConfigUtil extends OrmLiteConfigUtil {
 
   private static final Class<?>[] classes = new Class[] {
-    Light.class
+    LightModel.class
   };
 
   public static void main(String[] args) throws SQLException, IOException {

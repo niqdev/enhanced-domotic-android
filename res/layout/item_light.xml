@@ -7,25 +7,25 @@
   <!-- TODO -->
 
   <TextView
-    android:id="@+id/light_id"
+    android:id="@+id/light_name"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:text="ID" />
+    android:text="@string/label_textNone" />
 
   <TextView
     android:id="@+id/light_description"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:text="DESCRITPION" />
+    android:text="@string/label_textNone" />
   
   <Switch
     android:id="@+id/switch_light"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_gravity="right"
-    android:textOn="ON"
-    android:textOff="OFF"
+    android:textOn="TODO-ON"
+    android:textOff="TODO-OFF"
     android:thumbTextPadding="20dp"
-    android:text="aaa" />
+    android:text="@string/label_textNone" />
 
 </LinearLayout>

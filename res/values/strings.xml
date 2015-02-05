@@ -3,6 +3,7 @@
 
   <string name="app_name">Enhanced Domotic</string>
   <string name="activity_setting">Settings</string>
+  <string name="activity_edit_light">Edit light</string>
   
   <string name="progress_dialog_load">Loading</string>
   <string name="connection_error">Connection error</string>
@@ -22,5 +23,13 @@
   <string name="preference_default_protocol">OPENWEBNET</string>
   <string name="preference_default_host">0.0.0.0</string>
   <string name="preference_default_port">20000</string>
+  
+  <string name="label_add">ADD</string>
+  <string name="label_textNone">none</string>
+  <string name="validation_required">Required field</string>
+  
+  <string name="label_device_id">Device id</string>
+  <string name="label_name">Name</string>
+  <string name="label_description">Description</string>
   
 </resources>
