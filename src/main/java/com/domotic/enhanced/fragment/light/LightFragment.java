@@ -31,5 +31,11 @@ public class LightFragment extends Fragment {
   void addLight() {
     EditLightActivity_.intent(this).start();
   }
+
+  @Override
+  public void onResume() {
+    super.onResume();
+    adapter.notifyDataSetChanged();
+  }
   
 }

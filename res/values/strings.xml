@@ -26,7 +26,9 @@
   
   <string name="label_add">ADD</string>
   <string name="label_textNone">none</string>
+  
   <string name="validation_required">Required field</string>
+  <string name="validation_light">Number between 11 and 99 only</string>
   
   <string name="label_device_id">Device id</string>
   <string name="label_name">Name</string>

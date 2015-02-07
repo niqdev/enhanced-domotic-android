@@ -8,26 +8,33 @@ import org.androidannotations.annotations.ViewById;
 import org.apache.commons.lang3.StringUtils;
 
 import android.app.Activity;
+import android.os.Bundle;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.domotic.enhanced.R;
 import com.domotic.enhanced.model.LightModel;
 import com.domotic.enhanced.repository.LightRepository;
 import com.domotic.enhanced.repository.LightRepositoryImpl;
+import com.mobsandgeeks.saripaar.Rule;
+import com.mobsandgeeks.saripaar.Validator;
+import com.mobsandgeeks.saripaar.Validator.ValidationListener;
 import com.mobsandgeeks.saripaar.annotation.NumberRule;
 import com.mobsandgeeks.saripaar.annotation.NumberRule.NumberType;
 import com.mobsandgeeks.saripaar.annotation.Required;
 
 @EActivity(R.layout.edit_light)
-public class EditLightActivity extends Activity {
+public class EditLightActivity extends Activity implements ValidationListener {
   
   @Bean(LightRepositoryImpl.class)
   LightRepository repository;
   
   @ViewById(R.id.editText_editLightDeviceId)
   @Required(order = 1, messageResId = R.string.validation_required)
-  @NumberRule(order = 2, type = NumberType.INTEGER, message = "TODO only number")
+  // TODO remove openwebnet dependency
+  @NumberRule(order = 2, type = NumberType.INTEGER, gt = 10, lt = 100, messageResId = R.string.validation_light)
   EditText editTextDeviceId;
   
   @ViewById(R.id.editText_editLightName)
@@ -39,20 +46,45 @@ public class EditLightActivity extends Activity {
   
   @AfterTextChange({
     R.id.editText_editLightDeviceId,
-    R.id.editText_editLightName,
-    R.id.editText_editLightDescription
+    R.id.editText_editLightName
   })
   void clearAllValidation(TextView textView) {
     textView.setError(null);
   }
   
+  private Validator validator;
+  
+  @Override
+  protected void onCreate(Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
+    validator = new Validator(this);
+    validator.setValidationListener(this);
+  }
+
   @Click(R.id.button_editLight)
   void addLight() {
+    validator.validate();
+  }
+
+  @Override
+  public void onValidationSucceeded() {
     LightModel light = new LightModel();
     light.setDeviceId(Integer.valueOf(editTextDeviceId.getText().toString()));
     light.setName(editTextName.getText().toString());
     light.setDescription(StringUtils.trimToNull(editTextDescription.getText().toString()));
     repository.add(light);
+    finish();
+  }
+
+  @Override
+  public void onValidationFailed(View failedView, Rule<?> failedRule) {
+    String message = failedRule.getFailureMessage();
+    if (failedView instanceof EditText) {
+      failedView.requestFocus();
+      ((EditText) failedView).setError(message);
+    } else {
+      Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+    }
   }
 
 }
