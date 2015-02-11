@@ -14,7 +14,7 @@ import android.widget.BaseAdapter;
 
 import com.domotic.enhanced.model.LightModel;
 import com.domotic.enhanced.repository.LightRepository;
-import com.domotic.enhanced.repository.LightRepositoryImpl;
+import com.domotic.enhanced.repository.impl.LightRepositoryImpl;
 
 @EBean
 public class LightListAdapter extends BaseAdapter {

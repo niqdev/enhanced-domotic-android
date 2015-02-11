@@ -1,6 +1,40 @@
 #
-# generated on 2015/02/05 06:36:42
+# generated on 2015/02/11 07:36:10
 #
+# --table-start--
+dataClass=com.domotic.enhanced.model.DrawerMenuModel
+tableName=T_DRAWER_MENU
+# --table-fields-start--
+# --field-start--
+fieldName=id
+dataPersister=LONG_OBJ
+generatedId=true
+useGetSet=true
+# --field-end--
+# --field-start--
+fieldName=label
+dataPersister=STRING
+width=255
+canBeNull=false
+useGetSet=true
+# --field-end--
+# --field-start--
+fieldName=order
+dataPersister=INTEGER_OBJ
+width=255
+canBeNull=false
+useGetSet=true
+# --field-end--
+# --field-start--
+fieldName=qualifiedName
+dataPersister=STRING
+width=255
+canBeNull=false
+useGetSet=true
+# --field-end--
+# --table-fields-end--
+# --table-end--
+#################################
 # --table-start--
 dataClass=com.domotic.enhanced.model.LightModel
 tableName=T_DEVICE_LIGHT
@@ -28,6 +62,45 @@ useGetSet=true
 fieldName=description
 dataPersister=STRING
 width=255
+useGetSet=true
+# --field-end--
+# --table-fields-end--
+# --table-end--
+#################################
+# --table-start--
+dataClass=com.domotic.enhanced.model.IpCamModel
+tableName=T_IPCAM
+# --table-fields-start--
+# --field-start--
+fieldName=id
+dataPersister=LONG_OBJ
+generatedId=true
+useGetSet=true
+# --field-end--
+# --field-start--
+fieldName=url
+dataPersister=STRING
+width=255
+canBeNull=false
+useGetSet=true
+# --field-end--
+# --field-start--
+fieldName=username
+dataPersister=STRING
+width=255
+useGetSet=true
+# --field-end--
+# --field-start--
+fieldName=password
+dataPersister=STRING
+width=255
+useGetSet=true
+# --field-end--
+# --field-start--
+fieldName=name
+dataPersister=STRING
+width=255
+canBeNull=false
 useGetSet=true
 # --field-end--
 # --table-fields-end--

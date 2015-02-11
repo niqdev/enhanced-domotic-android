@@ -3,7 +3,8 @@
 
   <string name="app_name">Enhanced Domotic</string>
   <string name="activity_setting">Settings</string>
-  <string name="activity_edit_light">Edit light</string>
+  <string name="activity_light">Light</string>
+  <string name="activity_ipcam">Ipcam</string>
   
   <string name="progress_dialog_load">Loading</string>
   <string name="connection_error">Connection error</string>
@@ -33,5 +34,8 @@
   <string name="label_device_id">Device id</string>
   <string name="label_name">Name</string>
   <string name="label_description">Description</string>
+  <string name="label_username">Username</string>
+  <string name="label_password">Password</string>
+  <string name="label_url">Url</string>
   
 </resources>

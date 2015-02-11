@@ -26,7 +26,9 @@ public class DomoticConfig implements Config {
 
   @Override
   public String host() {
-    return preference.host().get();
+    // TODO
+    return "192.168.1.41";
+    //return preference.host().get();
   }
 
   @Override

@@ -1,10 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-  <string-array name="drawer_menu_array">
+  <string-array name="drawer_menu_label">
     <item>Home</item>
     <item>Light</item>
+    <item>IpCam</item>
     <item>Settings</item>
+  </string-array>
+  <string-array name="drawer_menu_class">
+    <item>TODO</item>
+    <item>com.domotic.enhanced.fragment.light.LightFragment_</item>
+    <item>com.domotic.enhanced.fragment.ipcam.IpCamFragment_</item>
+    <item>com.domotic.enhanced.fragment.setting.SettingFragment_</item>
   </string-array>
   
   <string-array name="preference_protocol_keys">

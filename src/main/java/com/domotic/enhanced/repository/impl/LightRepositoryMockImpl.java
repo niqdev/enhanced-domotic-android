@@ -1,10 +1,11 @@
-package com.domotic.enhanced.repository;
+package com.domotic.enhanced.repository.impl;
 
 import java.util.List;
 
 import org.androidannotations.annotations.EBean;
 
 import com.domotic.enhanced.model.LightModel;
+import com.domotic.enhanced.repository.LightRepository;
 import com.google.common.collect.Lists;
 
 @EBean

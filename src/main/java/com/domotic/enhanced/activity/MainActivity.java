@@ -1,13 +1,17 @@
 package com.domotic.enhanced.activity;
 
+import java.util.List;
+
+import org.androidannotations.annotations.AfterInject;
 import org.androidannotations.annotations.AfterViews;
+import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.ViewById;
-import org.androidannotations.annotations.res.StringArrayRes;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import android.app.Activity;
+import android.app.Fragment;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v4.app.ActionBarDrawerToggle;
@@ -21,8 +25,11 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import com.domotic.enhanced.R;
-import com.domotic.enhanced.fragment.light.LightFragment_;
-import com.domotic.enhanced.fragment.setting.SettingFragment_;
+import com.domotic.enhanced.model.DrawerMenuModel;
+import com.domotic.enhanced.repository.DrawerMenuRepository;
+import com.domotic.enhanced.repository.impl.DrawerMenuRepositoryImpl;
+import com.google.common.base.Function;
+import com.google.common.collect.FluentIterable;
 
 @EActivity(R.layout.activity_main)
 public class MainActivity extends Activity {
@@ -35,13 +42,18 @@ public class MainActivity extends Activity {
   @ViewById(R.id.left_drawer)
   ListView mDrawerList;
   
-  // TODO repository MENU
-  @StringArrayRes(R.array.drawer_menu_array)
-  String[] mDrawerMenuTitles;
+  @Bean(DrawerMenuRepositoryImpl.class)
+  DrawerMenuRepository drawerMenuRepository;
   
   private ActionBarDrawerToggle mDrawerToggle;
+  private List<DrawerMenuModel> mDrawerMenu;
   private CharSequence mDrawerTitle;
   private CharSequence mTitle;
+  
+  @AfterInject
+  void initDrawerMenuTitles() {
+    mDrawerMenu = drawerMenuRepository.findAll();
+  }
   
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -58,11 +70,23 @@ public class MainActivity extends Activity {
     // set a custom shadow that overlays the main content when the drawer opens
     mDrawerLayout.setDrawerShadow(R.drawable.drawer_shadow, GravityCompat.START);
     // set up the drawer's list view with items and click listener
-    mDrawerList.setAdapter(new ArrayAdapter<String>(this, R.layout.item_drawer, mDrawerMenuTitles));
+    mDrawerList.setAdapter(new ArrayAdapter<String>(this, R.layout.item_drawer, getDrawerMenuTitles()));
     mDrawerList.setOnItemClickListener(new DrawerItemClickListener());
     
     mDrawerToggle = mainActionBarDrawerToggle();
     mDrawerLayout.setDrawerListener(mDrawerToggle);
+  }
+  
+  private String[] getDrawerMenuTitles() {
+    return FluentIterable
+      .from(mDrawerMenu)
+      .transform(new Function<DrawerMenuModel, String>() {
+        @Override
+        public String apply(DrawerMenuModel input) {
+          return input.getLabel();
+        }
+      })
+      .toArray(String.class);
   }
   
   private ActionBarDrawerToggle mainActionBarDrawerToggle() {
@@ -94,34 +118,36 @@ public class MainActivity extends Activity {
   }
   
   private void selectItem(int position) {
-    // TODO start fragment
     log.debug("selectItem: {}", position);
     
-    // TODO class by name
+    startFragment(mDrawerMenu.get(position).<Fragment>newInstance());
     
-    // TODO
+    /* REMOVE
     switch (position) {
+    case 0:
+      startFragment(new IpCamFragment_());
+      break;
     case 1:
-      getFragmentManager()
-        .beginTransaction()
-        .replace(R.id.content_frame, new LightFragment_())
-        //.addToBackStack(null)
-        .commit();
+      startFragment(new LightFragment_());
       break;
     case 2:
-      getFragmentManager()
-        .beginTransaction()
-        .replace(R.id.content_frame, new SettingFragment_())
-        //.addToBackStack(null)
-        .commit();
+      startFragment(new SettingFragment_());
       break;
     }
-    
+    */
     
     // update selected item and title, then close the drawer
     mDrawerList.setItemChecked(position, true);
-    setTitle(mDrawerMenuTitles[position]);
+    setTitle(getDrawerMenuTitles()[position]);
     mDrawerLayout.closeDrawer(mDrawerList);
+  }
+  
+  void startFragment(Fragment fragment) {
+    getFragmentManager()
+    .beginTransaction()
+    .replace(R.id.content_frame, fragment)
+    //.addToBackStack(null)
+    .commit();
   }
   
   @Override

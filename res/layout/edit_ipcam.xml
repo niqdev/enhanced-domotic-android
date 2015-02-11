@@ -9,22 +9,22 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:paddingLeft="4dp"
-    android:text="@string/label_device_id" />
+    android:text="@string/label_url" />
 
   <EditText
-    android:id="@+id/editText_editLightDeviceId"
+    android:id="@+id/editText_editIpcamUrl"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:inputType="number" />
+    android:inputType="textMultiLine|textUri" />
 
   <TextView
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:paddingLeft="4dp"
-    android:text="@string/label_name" />
+    android:text="@string/label_username" />
 
   <EditText
-    android:id="@+id/editText_editLightName"
+    android:id="@+id/editText_editIpcamUsername"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:inputType="text" />
@@ -33,16 +33,28 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:paddingLeft="4dp"
-    android:text="@string/label_description" />
+    android:text="@string/label_password" />
 
   <EditText
-    android:id="@+id/editText_editLightDescription"
+    android:id="@+id/editText_editIpcamPassword"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:inputType="textMultiLine" />
+    android:inputType="textPassword" />
+
+  <TextView
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingLeft="4dp"
+    android:text="@string/label_name" />
+
+  <EditText
+    android:id="@+id/editText_editIpcamName"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:inputType="text" />
 
   <Button
-    android:id="@+id/button_editLight"
+    android:id="@+id/button_editIpcam"
     style="?android:attr/buttonStyleSmall"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"

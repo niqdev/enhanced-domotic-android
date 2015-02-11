@@ -17,7 +17,7 @@ import android.widget.Toast;
 import com.domotic.enhanced.R;
 import com.domotic.enhanced.model.LightModel;
 import com.domotic.enhanced.repository.LightRepository;
-import com.domotic.enhanced.repository.LightRepositoryImpl;
+import com.domotic.enhanced.repository.impl.LightRepositoryImpl;
 import com.mobsandgeeks.saripaar.Rule;
 import com.mobsandgeeks.saripaar.Validator;
 import com.mobsandgeeks.saripaar.Validator.ValidationListener;
@@ -27,6 +27,10 @@ import com.mobsandgeeks.saripaar.annotation.Required;
 
 @EActivity(R.layout.edit_light)
 public class EditLightActivity extends Activity implements ValidationListener {
+  
+  // TODO
+  public static final String NEW = "com.domotic.enhanced.activity.EditLightActivity.NEW";
+  public static final String EDIT = "com.domotic.enhanced.activity.EditLightActivity.EDIT";
   
   @Bean(LightRepositoryImpl.class)
   LightRepository repository;

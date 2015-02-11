@@ -24,7 +24,11 @@
     </activity>
     <activity
       android:name="com.domotic.enhanced.activity.EditLightActivity_"
-      android:label="@string/activity_edit_light"
+      android:label="@string/activity_light"
+      android:parentActivityName="com.domotic.enhanced.activity.MainActivity_" />
+    <activity
+      android:name="com.domotic.enhanced.activity.EditIpCamActivity_"
+      android:label="@string/activity_ipcam"
       android:parentActivityName="com.domotic.enhanced.activity.MainActivity_" />
   </application>
 

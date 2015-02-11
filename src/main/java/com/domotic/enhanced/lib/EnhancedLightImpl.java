@@ -12,11 +12,15 @@ import static com.domotic.enhanced.domain.EDomotic.SyntaxType.COMMAND;
 import org.androidannotations.annotations.AfterInject;
 import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.EBean;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.domotic.enhanced.EnhancedDomotic;
 
 @EBean
 public class EnhancedLightImpl implements EnhancedLight {
+  
+  private static final Logger log = LoggerFactory.getLogger(EnhancedLightImpl.class);
   
   @Bean
   DomoticConfig config;
@@ -33,6 +37,7 @@ public class EnhancedLightImpl implements EnhancedLight {
   }
   
   private EnhancedDomotic<?> command() {
+    log.debug("protocol|host:port {}|{}:{}", config.protocol(), config.host(), config.port());
     return domotic.type(COMMAND).handler(handler);
   }
   
