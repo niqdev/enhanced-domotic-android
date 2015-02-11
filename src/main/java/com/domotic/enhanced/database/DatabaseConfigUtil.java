@@ -14,14 +14,14 @@ import com.j256.ormlite.android.apptools.OrmLiteConfigUtil;
  */
 public class DatabaseConfigUtil extends OrmLiteConfigUtil {
 
-  private static final Class<?>[] classes = new Class[] {
+  static final Class<?>[] DATABASE_CLASSES = new Class[] {
     DrawerMenuModel.class,
     LightModel.class,
     IpCamModel.class
   };
 
   public static void main(String[] args) throws SQLException, IOException {
-    writeConfigFile("ormlite_config.txt", classes);
+    writeConfigFile("ormlite_config.txt", DATABASE_CLASSES);
   }
 
 }

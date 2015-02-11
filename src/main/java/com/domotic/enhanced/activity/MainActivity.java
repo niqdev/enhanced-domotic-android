@@ -119,22 +119,7 @@ public class MainActivity extends Activity {
   
   private void selectItem(int position) {
     log.debug("selectItem: {}", position);
-    
     startFragment(mDrawerMenu.get(position).<Fragment>newInstance());
-    
-    /* REMOVE
-    switch (position) {
-    case 0:
-      startFragment(new IpCamFragment_());
-      break;
-    case 1:
-      startFragment(new LightFragment_());
-      break;
-    case 2:
-      startFragment(new SettingFragment_());
-      break;
-    }
-    */
     
     // update selected item and title, then close the drawer
     mDrawerList.setItemChecked(position, true);
