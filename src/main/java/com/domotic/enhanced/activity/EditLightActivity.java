@@ -12,12 +12,12 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.domotic.enhanced.R;
 import com.domotic.enhanced.model.LightModel;
 import com.domotic.enhanced.repository.LightRepository;
 import com.domotic.enhanced.repository.impl.LightRepositoryImpl;
+import com.domotic.enhanced.util.ValidationUtils;
 import com.mobsandgeeks.saripaar.Rule;
 import com.mobsandgeeks.saripaar.Validator;
 import com.mobsandgeeks.saripaar.Validator.ValidationListener;
@@ -34,6 +34,9 @@ public class EditLightActivity extends Activity implements ValidationListener {
   
   @Bean(LightRepositoryImpl.class)
   LightRepository repository;
+  
+  @Bean
+  ValidationUtils validationUtils;
   
   @ViewById(R.id.editText_editLightDeviceId)
   @Required(order = 1, messageResId = R.string.validation_required)
@@ -66,29 +69,27 @@ public class EditLightActivity extends Activity implements ValidationListener {
   }
 
   @Click(R.id.button_editLight)
-  void addLight() {
+  void buttonLight() {
     validator.validate();
   }
 
   @Override
   public void onValidationSucceeded() {
+    addLight();
+    finish();
+  }
+  
+  private void addLight() {
     LightModel light = new LightModel();
     light.setDeviceId(Integer.valueOf(editTextDeviceId.getText().toString()));
     light.setName(editTextName.getText().toString());
     light.setDescription(StringUtils.trimToNull(editTextDescription.getText().toString()));
     repository.add(light);
-    finish();
   }
 
   @Override
   public void onValidationFailed(View failedView, Rule<?> failedRule) {
-    String message = failedRule.getFailureMessage();
-    if (failedView instanceof EditText) {
-      failedView.requestFocus();
-      ((EditText) failedView).setError(message);
-    } else {
-      Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
-    }
+    validationUtils.onValidationFailed(failedView, failedRule);
   }
 
 }

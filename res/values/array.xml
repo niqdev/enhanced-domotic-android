@@ -8,7 +8,7 @@
     <item>Settings</item>
   </string-array>
   <string-array name="drawer_menu_class">
-    <item>TODO</item>
+    <item>com.domotic.enhanced.fragment.home.HomeFragment_</item>
     <item>com.domotic.enhanced.fragment.light.LightFragment_</item>
     <item>com.domotic.enhanced.fragment.ipcam.IpCamFragment_</item>
     <item>com.domotic.enhanced.fragment.setting.SettingFragment_</item>
@@ -17,7 +17,6 @@
   <string-array name="preference_protocol_keys">
     <item>OpenWebNet</item>
   </string-array>
-  
   <string-array name="preference_protocol_values">
     <item>OPENWEBNET</item>
   </string-array>

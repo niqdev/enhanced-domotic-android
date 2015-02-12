@@ -37,6 +37,7 @@ public class EnhancedLightImpl implements EnhancedLight {
   }
   
   private EnhancedDomotic<?> command() {
+    // TODO
     log.debug("protocol|host:port {}|{}:{}", config.protocol(), config.host(), config.port());
     return domotic.type(COMMAND).handler(handler);
   }

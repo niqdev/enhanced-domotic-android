@@ -60,15 +60,16 @@ public class MainActivity extends Activity {
 
   @AfterViews
   void initViews() {
-    mDrawerLayout.setDrawerShadow(R.drawable.drawer_shadow, GravityCompat.START);
+    mDrawerList.setAdapter(new ArrayAdapter<String>(this,
+      R.layout.item_drawer, drawerMenuRepository.findLabels()));
     
-    String[] findAllTitles = drawerMenuRepository.findLabels();
-    mDrawerList.setAdapter(new ArrayAdapter<String>(this, R.layout.item_drawer, findAllTitles));
     mDrawerList.setOnItemClickListener(new DrawerItemClickListener());
     mDrawerToggle = mainActionBarDrawerToggle();
+    mDrawerLayout.setDrawerShadow(R.drawable.drawer_shadow, GravityCompat.START);
     mDrawerLayout.setDrawerListener(mDrawerToggle);
     
-    // TODO
+    // show Home
+    // TODO 0
     selectItem(1);
   }
   
@@ -99,9 +100,9 @@ public class MainActivity extends Activity {
   private void selectItem(int position) {
     log.debug("selectItem: {}", position);
     startFragment(mDrawerMenu.get(position).<Fragment>newInstance());
+    
     mDrawerList.setItemChecked(position, true);
-    String[] findAllActionTitles = drawerMenuRepository.findActionBarTitles();
-    setTitle(findAllActionTitles[position]);
+    setTitle(drawerMenuRepository.findActionBarTitles()[position]);
     mDrawerLayout.closeDrawer(mDrawerList);
   }
   
