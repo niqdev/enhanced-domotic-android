@@ -1,5 +1,5 @@
 #
-# generated on 2015/02/11 07:36:10
+# generated on 2015/02/12 08:08:02
 #
 # --table-start--
 dataClass=com.domotic.enhanced.model.DrawerMenuModel
@@ -19,7 +19,14 @@ canBeNull=false
 useGetSet=true
 # --field-end--
 # --field-start--
-fieldName=order
+fieldName=actionBarTitle
+dataPersister=STRING
+width=255
+canBeNull=false
+useGetSet=true
+# --field-end--
+# --field-start--
+fieldName=orderMenu
 dataPersister=INTEGER_OBJ
 width=255
 canBeNull=false

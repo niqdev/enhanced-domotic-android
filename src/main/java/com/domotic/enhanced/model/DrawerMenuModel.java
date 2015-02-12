@@ -18,8 +18,8 @@ import org.slf4j.LoggerFactory;
 @Entity(name = "T_DRAWER_MENU")
 public class DrawerMenuModel implements Serializable {
   
-  private static final long serialVersionUID = -6630833653752613326L;
-  
+  private static final long serialVersionUID = -3288484734670172864L;
+
   private static final Logger log = LoggerFactory.getLogger(DrawerMenuModel.class);
 
   public DrawerMenuModel() {
@@ -34,7 +34,10 @@ public class DrawerMenuModel implements Serializable {
   private String label;
   
   @Column(nullable = false)
-  private Integer order;
+  private String actionBarTitle;
+  
+  @Column(nullable = false)
+  private Integer orderMenu;
   
   @Column(nullable = false)
   private String qualifiedName;
@@ -42,7 +45,7 @@ public class DrawerMenuModel implements Serializable {
   /*
    * 
    */
-
+  
   public Long getId() {
     return id;
   }
@@ -59,12 +62,20 @@ public class DrawerMenuModel implements Serializable {
     this.label = label;
   }
 
-  public Integer getOrder() {
-    return order;
+  public String getActionBarTitle() {
+    return actionBarTitle;
   }
 
-  public void setOrder(Integer order) {
-    this.order = order;
+  public void setActionBarTitle(String actionBarTitle) {
+    this.actionBarTitle = actionBarTitle;
+  }
+
+  public Integer getOrderMenu() {
+    return orderMenu;
+  }
+
+  public void setOrderMenu(Integer orderMenu) {
+    this.orderMenu = orderMenu;
   }
 
   public String getQualifiedName() {
@@ -81,7 +92,7 @@ public class DrawerMenuModel implements Serializable {
       return (T) Class.forName(qualifiedName).newInstance();
     } catch (Exception e) {
       log.error("DrawerMenuModel#newInstance", e);
-      return null;
+      throw new RuntimeException(e);
     }
   }
 
@@ -115,7 +126,8 @@ public class DrawerMenuModel implements Serializable {
     return new ToStringBuilder(this, ToStringStyle.SHORT_PREFIX_STYLE)
       .append("id", id)
       .append("label", label)
-      .append("order", order)
+      .append("actionBarTitle", actionBarTitle)
+      .append("orderMenu", orderMenu)
       .append("qualifiedName", qualifiedName)
       .toString();
   }

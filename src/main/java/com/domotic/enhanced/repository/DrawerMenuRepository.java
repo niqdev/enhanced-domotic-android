@@ -11,5 +11,9 @@ public interface DrawerMenuRepository {
   void add(DrawerMenuModel drawerMenu);
   
   List<DrawerMenuModel> findAll();
-
+  
+  String[] findLabels();
+  
+  String[] findActionBarTitles();
+  
 }

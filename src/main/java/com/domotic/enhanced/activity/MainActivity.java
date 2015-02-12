@@ -28,8 +28,6 @@ import com.domotic.enhanced.R;
 import com.domotic.enhanced.model.DrawerMenuModel;
 import com.domotic.enhanced.repository.DrawerMenuRepository;
 import com.domotic.enhanced.repository.impl.DrawerMenuRepositoryImpl;
-import com.google.common.base.Function;
-import com.google.common.collect.FluentIterable;
 
 @EActivity(R.layout.activity_main)
 public class MainActivity extends Activity {
@@ -47,8 +45,6 @@ public class MainActivity extends Activity {
   
   private ActionBarDrawerToggle mDrawerToggle;
   private List<DrawerMenuModel> mDrawerMenu;
-  private CharSequence mDrawerTitle;
-  private CharSequence mTitle;
   
   @AfterInject
   void initDrawerMenuTitles() {
@@ -58,35 +54,22 @@ public class MainActivity extends Activity {
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
-    
-    mTitle = mDrawerTitle = getTitle();
-    // enable ActionBar app icon to behave as action to toggle nav drawer
     getActionBar().setDisplayHomeAsUpEnabled(true);
     getActionBar().setHomeButtonEnabled(true);
   }
 
   @AfterViews
   void initViews() {
-    // set a custom shadow that overlays the main content when the drawer opens
     mDrawerLayout.setDrawerShadow(R.drawable.drawer_shadow, GravityCompat.START);
-    // set up the drawer's list view with items and click listener
-    mDrawerList.setAdapter(new ArrayAdapter<String>(this, R.layout.item_drawer, getDrawerMenuTitles()));
-    mDrawerList.setOnItemClickListener(new DrawerItemClickListener());
     
+    String[] findAllTitles = drawerMenuRepository.findLabels();
+    mDrawerList.setAdapter(new ArrayAdapter<String>(this, R.layout.item_drawer, findAllTitles));
+    mDrawerList.setOnItemClickListener(new DrawerItemClickListener());
     mDrawerToggle = mainActionBarDrawerToggle();
     mDrawerLayout.setDrawerListener(mDrawerToggle);
-  }
-  
-  private String[] getDrawerMenuTitles() {
-    return FluentIterable
-      .from(mDrawerMenu)
-      .transform(new Function<DrawerMenuModel, String>() {
-        @Override
-        public String apply(DrawerMenuModel input) {
-          return input.getLabel();
-        }
-      })
-      .toArray(String.class);
+    
+    // TODO
+    selectItem(1);
   }
   
   private ActionBarDrawerToggle mainActionBarDrawerToggle() {
@@ -95,15 +78,11 @@ public class MainActivity extends Activity {
 
         @Override
         public void onDrawerOpened(View drawerView) {
-          getActionBar().setTitle(mTitle);
-          // creates call to onPrepareOptionsMenu()
           invalidateOptionsMenu();
         }
 
         @Override
         public void onDrawerClosed(View drawerView) {
-          getActionBar().setTitle(mDrawerTitle);
-          // creates call to onPrepareOptionsMenu()
           invalidateOptionsMenu();
         }
     }; 
@@ -120,32 +99,28 @@ public class MainActivity extends Activity {
   private void selectItem(int position) {
     log.debug("selectItem: {}", position);
     startFragment(mDrawerMenu.get(position).<Fragment>newInstance());
-    
-    // update selected item and title, then close the drawer
     mDrawerList.setItemChecked(position, true);
-    setTitle(getDrawerMenuTitles()[position]);
+    String[] findAllActionTitles = drawerMenuRepository.findActionBarTitles();
+    setTitle(findAllActionTitles[position]);
     mDrawerLayout.closeDrawer(mDrawerList);
   }
   
   void startFragment(Fragment fragment) {
     getFragmentManager()
-    .beginTransaction()
-    .replace(R.id.content_frame, fragment)
-    //.addToBackStack(null)
-    .commit();
+      .beginTransaction()
+      .replace(R.id.content_frame, fragment)
+      //.addToBackStack(null)
+      .commit();
   }
   
   @Override
   public void onConfigurationChanged(Configuration newConfig) {
     super.onConfigurationChanged(newConfig);
-    // pass any configuration change to the drawer toggle
     mDrawerToggle.onConfigurationChanged(newConfig);
   }
   
   @Override
   public boolean onOptionsItemSelected(MenuItem item) {
-    // the action bar home/up action should open or close the drawer
-    // ActionBarDrawerToggle will take care of this
     if (mDrawerToggle.onOptionsItemSelected(item)) {
       return true;
     }
@@ -155,23 +130,16 @@ public class MainActivity extends Activity {
   @Override
   protected void onPostCreate(Bundle savedInstanceState) {
     super.onPostCreate(savedInstanceState);
-    // sync the toggle state after onRestoreInstanceState has occurred
     mDrawerToggle.syncState();
   }
 
-  // called whenever we call invalidateOptionsMenu()
+  // TODO called whenever we call invalidateOptionsMenu()
   @Override
   public boolean onPrepareOptionsMenu(Menu menu) {
     // if the nav drawer is open, hide action items related to the content view
     boolean drawerOpen = mDrawerLayout.isDrawerOpen(mDrawerList);
     //menu.findItem(R.id.action_websearch).setVisible(!drawerOpen);
     return super.onPrepareOptionsMenu(menu);
-  }
-
-  @Override
-  public void setTitle(CharSequence title) {
-    mTitle = title;
-    getActionBar().setTitle(mTitle);
   }
 
 }
