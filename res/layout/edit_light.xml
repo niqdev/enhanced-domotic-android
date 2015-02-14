@@ -15,7 +15,8 @@
     android:id="@+id/editText_editLightDeviceId"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:inputType="number" />
+    android:inputType="number"
+    android:imeOptions="actionNext" />
 
   <TextView
     android:layout_width="match_parent"
@@ -27,7 +28,8 @@
     android:id="@+id/editText_editLightName"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:inputType="text" />
+    android:inputType="text" 
+    android:imeOptions="actionNext"/>
 
   <TextView
     android:layout_width="match_parent"
@@ -39,7 +41,8 @@
     android:id="@+id/editText_editLightDescription"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:inputType="textMultiLine" />
+    android:inputType="textMultiLine"
+    android:imeOptions="actionDone" />
 
   <Button
     android:id="@+id/button_editLight"
@@ -47,6 +50,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginTop="20dp"
+    android:textAllCaps="true"
     android:text="@string/label_none" />
 
 </LinearLayout>

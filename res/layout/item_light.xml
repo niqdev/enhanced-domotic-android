@@ -2,30 +2,26 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
   android:layout_width="match_parent"
   android:layout_height="match_parent"
-  android:orientation="vertical" >
-  
-  <!-- TODO -->
+  android:background="@drawable/layout_selector"
+  android:clickable="true"
+  android:orientation="vertical"
+  android:padding="20dp"
+  android:paddingLeft="40dp" >
 
-  <TextView
-    android:id="@+id/light_name"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:text="@string/label_none" />
-
-  <TextView
-    android:id="@+id/light_description"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:text="@string/label_none" />
-  
   <Switch
     android:id="@+id/switch_light"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_gravity="right"
-    android:textOn="TODO-ON"
-    android:textOff="TODO-OFF"
-    android:thumbTextPadding="20dp"
-    android:text="@string/label_none" />
+    android:text="@string/label_none"
+    android:textAppearance="?android:attr/textAppearanceLarge"
+    android:thumbTextPadding="10dp" />
+
+  <TextView
+    android:id="@+id/textView_lightDescription"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:singleLine="true"
+    android:text="@string/label_description"
+    android:textAppearance="?android:attr/textAppearanceSmall" />
 
 </LinearLayout>

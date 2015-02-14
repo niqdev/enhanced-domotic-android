@@ -1,5 +1,7 @@
 package com.domotic.enhanced.fragment.light;
 
+import static com.domotic.enhanced.activity.ActivityIntentType.ADD;
+
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.EFragment;
@@ -31,7 +33,7 @@ public class LightFragment extends Fragment {
   
   @OptionsItem(R.id.action_light_add)
   void addLight() {
-    EditLightActivity_.intent(this).start();
+    EditLightActivity_.intent(this).intentType(ADD).start();
   }
 
   @Override

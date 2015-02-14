@@ -1,15 +1,21 @@
 package com.domotic.enhanced.activity;
 
+import static org.apache.commons.lang3.StringUtils.defaultString;
+import static org.apache.commons.lang3.StringUtils.trimToNull;
+
 import org.androidannotations.annotations.AfterTextChange;
+import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EActivity;
+import org.androidannotations.annotations.Extra;
 import org.androidannotations.annotations.ViewById;
-import org.apache.commons.lang3.StringUtils;
+import org.androidannotations.annotations.res.StringRes;
 
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -28,9 +34,8 @@ import com.mobsandgeeks.saripaar.annotation.Required;
 @EActivity(R.layout.edit_light)
 public class EditLightActivity extends Activity implements ValidationListener {
   
-  // TODO
-  public static final String NEW = "com.domotic.enhanced.activity.EditLightActivity.NEW";
-  public static final String EDIT = "com.domotic.enhanced.activity.EditLightActivity.EDIT";
+  @Extra
+  ActivityIntentType intentType;
   
   @Bean(LightRepositoryImpl.class)
   LightRepository repository;
@@ -51,12 +56,34 @@ public class EditLightActivity extends Activity implements ValidationListener {
   @ViewById(R.id.editText_editLightDescription)
   EditText editTextDescription;
   
+  @ViewById(R.id.button_editLight)
+  Button buttonLight;
+  
   @AfterTextChange({
     R.id.editText_editLightDeviceId,
     R.id.editText_editLightName
   })
   void clearAllValidation(TextView textView) {
     textView.setError(null);
+  }
+  
+  @StringRes(R.string.label_add)
+  String labelAdd;
+  
+  @StringRes(R.string.label_edit)
+  String labelEdit;
+  
+  @AfterViews
+  void initViews() {
+    switch (intentType) {
+    case ADD:
+      buttonLight.setText(labelAdd);
+      break;
+    case EDIT:
+      // TODO populate text view
+      buttonLight.setText(labelEdit);
+      break;
+    }
   }
   
   private Validator validator;
@@ -83,7 +110,7 @@ public class EditLightActivity extends Activity implements ValidationListener {
     LightModel light = new LightModel();
     light.setDeviceId(Integer.valueOf(editTextDeviceId.getText().toString()));
     light.setName(editTextName.getText().toString());
-    light.setDescription(StringUtils.trimToNull(editTextDescription.getText().toString()));
+    light.setDescription(defaultString(trimToNull(editTextDescription.getText().toString()), "-"));
     repository.add(light);
   }
 

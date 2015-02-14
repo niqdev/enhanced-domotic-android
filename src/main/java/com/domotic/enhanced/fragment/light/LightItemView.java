@@ -10,6 +10,7 @@ import org.slf4j.LoggerFactory;
 import android.content.Context;
 import android.widget.CompoundButton;
 import android.widget.LinearLayout;
+import android.widget.Switch;
 import android.widget.TextView;
 
 import com.domotic.enhanced.R;
@@ -25,25 +26,25 @@ public class LightItemView extends LinearLayout {
   @Bean(EnhancedLightImpl.class)
   EnhancedLight enhancedLight;
   
-  @ViewById(R.id.light_name)
-  TextView nameView;
+  @ViewById(R.id.switch_light)
+  Switch switchLight;
   
-  @ViewById(R.id.light_description)
-  TextView descriptionView;
+  @ViewById(R.id.textView_lightDescription)
+  TextView textDescription;
 
   public LightItemView(Context context) {
     super(context);
   }
   
   public void bind(LightModel light) {
-    nameView.setTag(light);
-    nameView.setText(light.getName());
-    descriptionView.setText(light.getDescription());
+    switchLight.setTag(light);
+    switchLight.setText(light.getName());
+    textDescription.setText(light.getDescription());
   }
   
   @CheckedChange(R.id.switch_light)
   public void switchLight(boolean isChecked, CompoundButton button) {
-    Integer deviceId = ((LightModel) nameView.getTag()).getDeviceId();
+    Integer deviceId = ((LightModel) switchLight.getTag()).getDeviceId();
     log.debug("switchLight [{}] {}", deviceId, isChecked);
     if (isChecked) {
       enhancedLight.turnOnById(deviceId);
