@@ -69,8 +69,7 @@ public class MainActivity extends Activity {
     mDrawerLayout.setDrawerListener(mDrawerToggle);
     
     // show Home
-    // TODO 0
-    selectItem(1);
+    selectItem(0);
   }
   
   private ActionBarDrawerToggle mainActionBarDrawerToggle() {
@@ -134,13 +133,18 @@ public class MainActivity extends Activity {
     mDrawerToggle.syncState();
   }
 
-  // TODO called whenever we call invalidateOptionsMenu()
   @Override
   public boolean onPrepareOptionsMenu(Menu menu) {
-    // if the nav drawer is open, hide action items related to the content view
+    // called on invalidateOptionsMenu()
     boolean drawerOpen = mDrawerLayout.isDrawerOpen(mDrawerList);
-    //menu.findItem(R.id.action_websearch).setVisible(!drawerOpen);
+    visibleMenuItems(menu, !drawerOpen);
     return super.onPrepareOptionsMenu(menu);
+  }
+  
+  private void visibleMenuItems(Menu menu, boolean visible) {
+    for (int i=0; i<menu.size(); i++) {
+      menu.getItem(i).setVisible(visible);
+    }
   }
 
 }

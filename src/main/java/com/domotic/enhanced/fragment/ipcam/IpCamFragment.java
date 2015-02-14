@@ -6,6 +6,8 @@ import java.net.URI;
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Background;
 import org.androidannotations.annotations.EFragment;
+import org.androidannotations.annotations.OptionsItem;
+import org.androidannotations.annotations.OptionsMenu;
 import org.androidannotations.annotations.UiThread;
 import org.androidannotations.annotations.ViewById;
 import org.apache.http.HttpResponse;
@@ -31,10 +33,12 @@ import android.os.Bundle;
 import android.widget.LinearLayout;
 
 import com.domotic.enhanced.R;
+import com.domotic.enhanced.activity.EditIpCamActivity_;
 import com.domotic.enhanced.mjpeg.MjpegInputStream;
 import com.domotic.enhanced.mjpeg.MjpegView;
 
 @EFragment(R.layout.fragment_ipcam)
+@OptionsMenu(R.menu.menu_ipcam)
 public class IpCamFragment extends Fragment {
   
   private static final Logger log = LoggerFactory.getLogger(IpCamFragment.class);
@@ -99,6 +103,11 @@ public class IpCamFragment extends Fragment {
     mv.setSource(source);
     mv.setDisplayMode(MjpegView.SIZE_BEST_FIT);
     mv.showFps(true);
+  }
+  
+  @OptionsItem(R.id.action_ipcam_add)
+  void addIpcam() {
+    EditIpCamActivity_.intent(this).start();
   }
 
 }
