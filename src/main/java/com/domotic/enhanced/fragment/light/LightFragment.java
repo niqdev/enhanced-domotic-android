@@ -2,9 +2,9 @@ package com.domotic.enhanced.fragment.light;
 
 import static com.domotic.enhanced.activity.ActivityIntentType.ADD;
 import static com.domotic.enhanced.activity.ActivityIntentType.EDIT;
-import static com.domotic.enhanced.fragment.dialog.ConfirmDialogFragment.PARAM_MESSAGE;
-import static com.domotic.enhanced.fragment.dialog.ConfirmDialogFragment.PARAM_TITLE;
-import static com.domotic.enhanced.fragment.dialog.EditDialogFragment.PARAM_MODEL;
+import static com.domotic.enhanced.fragment.dialog.AbstractDialogFragment.PARAM_MESSAGE;
+import static com.domotic.enhanced.fragment.dialog.AbstractDialogFragment.PARAM_TITLE;
+import static com.domotic.enhanced.fragment.dialog.AbstractDialogFragment.PARAM_VALUE;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Bean;
@@ -19,20 +19,21 @@ import android.app.Fragment;
 import android.os.Bundle;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import com.domotic.enhanced.R;
 import com.domotic.enhanced.activity.EditLightActivity_;
 import com.domotic.enhanced.fragment.dialog.ConfirmDialogFragment;
-import com.domotic.enhanced.fragment.dialog.ConfirmDialogFragment.ConfirmListenerDialogFragment;
+import com.domotic.enhanced.fragment.dialog.ConfirmDialogFragment.ConfirmDialogFragmentListener;
 import com.domotic.enhanced.fragment.dialog.EditDialogFragment;
-import com.domotic.enhanced.fragment.dialog.EditDialogFragment.EditListenerDialogFragment;
+import com.domotic.enhanced.fragment.dialog.EditDialogFragment.EditDialogFragmentListener;
 import com.domotic.enhanced.model.LightModel;
+import com.domotic.enhanced.repository.LightRepository;
+import com.domotic.enhanced.repository.impl.LightRepositoryImpl;
 
 @EFragment(R.layout.fragment_light)
 @OptionsMenu(R.menu.menu_light)
 public class LightFragment extends Fragment
-  implements EditListenerDialogFragment, ConfirmListenerDialogFragment {
+  implements EditDialogFragmentListener<LightModel>, ConfirmDialogFragmentListener<LightModel> {
   
   @ViewById(R.id.list_light)
   ListView list;
@@ -40,11 +41,14 @@ public class LightFragment extends Fragment
   @Bean(LightListAdapter.class)
   BaseAdapter adapter;
   
+  @Bean(LightRepositoryImpl.class)
+  LightRepository repository;
+  
   @Bean(EditDialogFragment.class)
-  EditDialogFragment<LightModel, LightFragment> editDialog;
+  EditDialogFragment<LightModel> editDialog;
   
   @Bean(ConfirmDialogFragment.class)
-  ConfirmDialogFragment<LightFragment> confirmDialog;
+  ConfirmDialogFragment<LightModel> confirmDialog;
   
   @StringRes(R.string.dialog_delete_title_delete)
   String dialogTitleDelete;
@@ -71,7 +75,7 @@ public class LightFragment extends Fragment
   @ItemLongClick(R.id.list_light)
   void onLongClick(LightModel light) {
     Bundle params = new Bundle();
-    params.putSerializable(PARAM_MODEL, light);
+    params.putSerializable(PARAM_VALUE, light);
     editDialog.setArguments(params);
     editDialog.show(getFragmentManager(), getClass().getSimpleName());
   }
@@ -79,23 +83,24 @@ public class LightFragment extends Fragment
   /* Dialogs */
 
   @Override
-  public <M> void editDialog(M model) {
-    EditLightActivity_.intent(this).intentType(EDIT).model((LightModel) model).start();
+  public void editDialog(LightModel value) {
+    EditLightActivity_.intent(this).intentType(EDIT).model(value).start();
   }
 
   @Override
-  public <M> void deleteDialog(M model) {
+  public void deleteDialog(LightModel value) {
     Bundle params = new Bundle();
     params.putString(PARAM_TITLE, dialogTitleDelete);
     params.putString(PARAM_MESSAGE, dialogMessageConfirm);
+    params.putSerializable(PARAM_VALUE, value);
     confirmDialog.setArguments(params);
     confirmDialog.show(getFragmentManager(), getClass().getSimpleName());
   }
-
+  
   @Override
-  public void confirmDialog() {
-    // TODO
-    Toast.makeText(getActivity(), "DELETE", Toast.LENGTH_SHORT).show();
+  public void confirmDialog(LightModel value) {
+    repository.delete(value.getId());
+    adapter.notifyDataSetChanged();
   }
   
 }
