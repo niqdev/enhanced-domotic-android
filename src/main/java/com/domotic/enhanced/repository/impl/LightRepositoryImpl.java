@@ -26,4 +26,14 @@ public class LightRepositoryImpl implements LightRepository {
     dao.create(light);
   }
 
+  @Override
+  public void update(LightModel light) {
+    dao.update(light);
+  }
+
+  @Override
+  public void delete(Long id) {
+    dao.deleteById(id);
+  }
+
 }

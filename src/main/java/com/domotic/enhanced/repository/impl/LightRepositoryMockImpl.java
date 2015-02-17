@@ -39,4 +39,14 @@ public class LightRepositoryMockImpl implements LightRepository {
     // do nothing
   }
 
+  @Override
+  public void update(LightModel light) {
+    // do nothing
+  }
+
+  @Override
+  public void delete(Long id) {
+    // do nothing
+  }
+
 }

@@ -40,4 +40,8 @@
   <string name="label_password">Password</string>
   <string name="label_url">Url</string>
   
+  <!-- dialog -->
+  <string name="dialog_delete_title_delete">Delete</string>
+  <string name="dialog_delete_message_confirm">Are you sure?</string>
+  
 </resources>

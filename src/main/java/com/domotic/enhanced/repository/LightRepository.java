@@ -9,5 +9,9 @@ public interface LightRepository {
   List<LightModel> findAll();
   
   void add(LightModel light);
+  
+  void update(LightModel light);
+  
+  void delete(Long id);
 
 }

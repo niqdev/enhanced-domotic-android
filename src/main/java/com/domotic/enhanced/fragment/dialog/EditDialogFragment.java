@@ -1,5 +1,7 @@
 package com.domotic.enhanced.fragment.dialog;
 
+import static com.google.common.base.Preconditions.checkNotNull;
+
 import org.androidannotations.annotations.EBean;
 import org.apache.commons.lang3.reflect.MethodUtils;
 import org.slf4j.Logger;
@@ -15,13 +17,19 @@ import com.domotic.enhanced.R;
 import com.domotic.enhanced.fragment.dialog.EditDialogFragment.EditListenerDialogFragment;
 
 @EBean
-public class EditDialogFragment<F extends EditListenerDialogFragment> extends DialogFragment {
+public class EditDialogFragment<M, F extends EditListenerDialogFragment> extends DialogFragment {
   
-  private static final Logger log = LoggerFactory.getLogger(EditDialogFragment.class);
+  public static final String PARAM_MODEL = "com.domotic.enhanced.fragment.dialog.EditDialogFragment.PARAM_MODEL";
 
+  private static final Logger log = LoggerFactory.getLogger(EditDialogFragment.class);
+  
+  @SuppressWarnings("unchecked")
   @Override
   public Dialog onCreateDialog(Bundle savedInstanceState) {
-    return new AlertDialog.Builder(getActivity())
+    final M model = (M) getArguments().getSerializable(PARAM_MODEL);
+    checkNotNull(model);
+    
+    return new AlertDialog.Builder(getActivity(), AlertDialog.THEME_HOLO_DARK)
       .setItems(R.array.edit_dialog, new DialogInterface.OnClickListener() {
         
         @Override
@@ -29,10 +37,10 @@ public class EditDialogFragment<F extends EditListenerDialogFragment> extends Di
           dialog.dismiss();
           switch (which) {
           case 0:
-            invokeMethod("edit");
+            invokeMethod("editDialog", model);
             break;
           case 1:
-            invokeMethod("delete");
+            invokeMethod("deleteDialog", model);
             break;
           }
         }
@@ -41,9 +49,10 @@ public class EditDialogFragment<F extends EditListenerDialogFragment> extends Di
   }
   
   @SuppressWarnings("unchecked")
-  private void invokeMethod(String methodName) {
+  private void invokeMethod(String methodName, M model) {
     try {
-      MethodUtils.invokeMethod((F) getFragmentManager().findFragmentById(R.id.content_frame), methodName);
+      MethodUtils.invokeMethod(
+        (F) getFragmentManager().findFragmentById(R.id.content_frame), methodName, model);
     } catch (Exception e) {
       log.error("fragment must implements EditListenerDialogFragment", e);
     }
@@ -54,9 +63,9 @@ public class EditDialogFragment<F extends EditListenerDialogFragment> extends Di
    */
   public interface EditListenerDialogFragment {
     
-    void edit();
+    <M> void editDialog(M model);
 
-    void delete();
+    <M> void deleteDialog(M model);
     
   }
 

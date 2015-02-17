@@ -11,6 +11,7 @@ import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.Extra;
 import org.androidannotations.annotations.ViewById;
 import org.androidannotations.annotations.res.StringRes;
+import org.apache.commons.lang3.StringUtils;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -36,6 +37,9 @@ public class EditLightActivity extends Activity implements ValidationListener {
   
   @Extra
   ActivityIntentType intentType;
+  
+  @Extra
+  LightModel model;
   
   @Bean(LightRepositoryImpl.class)
   LightRepository repository;
@@ -80,8 +84,12 @@ public class EditLightActivity extends Activity implements ValidationListener {
       buttonLight.setText(labelAdd);
       break;
     case EDIT:
-      // TODO populate text view
+      editTextDeviceId.setText(model.getDeviceId().toString());
+      editTextName.setText(model.getName());
+      editTextDescription.setText(
+        "-".equals(StringUtils.trimToEmpty(model.getDescription())) ? "" : model.getDescription());
       buttonLight.setText(labelEdit);
+      buttonLight.setTag(model.getId());
       break;
     }
   }
@@ -102,18 +110,26 @@ public class EditLightActivity extends Activity implements ValidationListener {
 
   @Override
   public void onValidationSucceeded() {
-    addLight();
+    switch (intentType) {
+    case ADD:
+      repository.add(parseLight());
+      break;
+    case EDIT:
+      repository.update(parseLight());
+      break;
+    }
     finish();
   }
   
-  private void addLight() {
+  private LightModel parseLight() {
     LightModel light = new LightModel();
+    light.setId((Long) (buttonLight.getTag() != null ? buttonLight.getTag() : null));
     light.setDeviceId(Integer.valueOf(editTextDeviceId.getText().toString()));
     light.setName(editTextName.getText().toString());
     light.setDescription(defaultString(trimToNull(editTextDescription.getText().toString()), "-"));
-    repository.add(light);
+    return light;
   }
-
+  
   @Override
   public void onValidationFailed(View failedView, Rule<?> failedRule) {
     validationUtils.onValidationFailed(failedView, failedRule);
