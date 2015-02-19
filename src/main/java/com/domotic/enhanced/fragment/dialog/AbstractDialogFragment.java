@@ -29,7 +29,7 @@ public abstract class AbstractDialogFragment<V extends Serializable, L extends D
       MethodUtils.invokeMethod(
         (L) getFragmentManager().findFragmentById(getFragmentId()), methodName, getArgValue());
     } catch (Exception e) {
-      log.error("fragment must implements an interface that extends DialogFragmentListener with single serializable parameter methods", e);
+      log.error("fragment must implements an interface that extends DialogFragmentListener with single serializable parameter", e);
     }
   }
   

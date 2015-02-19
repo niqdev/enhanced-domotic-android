@@ -6,6 +6,7 @@ import org.androidannotations.annotations.AfterInject;
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.EActivity;
+import org.androidannotations.annotations.InstanceState;
 import org.androidannotations.annotations.ViewById;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -43,6 +44,10 @@ public class MainActivity extends Activity {
   @Bean(DrawerMenuRepositoryImpl.class)
   DrawerMenuRepository drawerMenuRepository;
   
+  // restore fragment on orientation changed
+  @InstanceState
+  int fragmentPosition;
+  
   private ActionBarDrawerToggle mDrawerToggle;
   private List<DrawerMenuModel> mDrawerMenu;
   
@@ -68,8 +73,7 @@ public class MainActivity extends Activity {
     mDrawerLayout.setDrawerShadow(R.drawable.drawer_shadow, GravityCompat.START);
     mDrawerLayout.setDrawerListener(mDrawerToggle);
     
-    // show Home
-    selectItem(0);
+    selectItem(fragmentPosition);
   }
   
   private ActionBarDrawerToggle mainActionBarDrawerToggle() {
@@ -103,9 +107,10 @@ public class MainActivity extends Activity {
     mDrawerList.setItemChecked(position, true);
     setTitle(drawerMenuRepository.findActionBarTitles()[position]);
     mDrawerLayout.closeDrawer(mDrawerList);
+    fragmentPosition = position;
   }
   
-  void startFragment(Fragment fragment) {
+  public void startFragment(Fragment fragment) {
     getFragmentManager()
       .beginTransaction()
       .replace(R.id.content_frame, fragment)
@@ -146,5 +151,5 @@ public class MainActivity extends Activity {
       menu.getItem(i).setVisible(visible);
     }
   }
-
+  
 }

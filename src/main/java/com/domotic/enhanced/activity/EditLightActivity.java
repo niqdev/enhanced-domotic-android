@@ -9,6 +9,7 @@ import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.Extra;
+import org.androidannotations.annotations.OptionsItem;
 import org.androidannotations.annotations.ViewById;
 import org.androidannotations.annotations.res.StringRes;
 import org.apache.commons.lang3.StringUtils;
@@ -46,6 +47,8 @@ public class EditLightActivity extends Activity implements ValidationListener {
   
   @Bean
   ValidationUtils validationUtils;
+  
+  private Validator validator;
   
   @ViewById(R.id.editText_editLightDeviceId)
   @Required(order = 1, messageResId = R.string.validation_required)
@@ -94,13 +97,18 @@ public class EditLightActivity extends Activity implements ValidationListener {
     }
   }
   
-  private Validator validator;
+  @OptionsItem(android.R.id.home)
+  void onBackAction() {
+    // action back button same behaviour
+    this.onBackPressed();
+  }
   
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     validator = new Validator(this);
     validator.setValidationListener(this);
+    getActionBar().setDisplayHomeAsUpEnabled(true);
   }
 
   @Click(R.id.button_editLight)
@@ -134,5 +142,5 @@ public class EditLightActivity extends Activity implements ValidationListener {
   public void onValidationFailed(View failedView, Rule<?> failedRule) {
     validationUtils.onValidationFailed(failedView, failedRule);
   }
-
+  
 }
