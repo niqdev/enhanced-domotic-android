@@ -30,6 +30,10 @@
       android:name="com.domotic.enhanced.activity.EditIpCamActivity_"
       android:label="@string/activity_ipcam"
       android:parentActivityName="com.domotic.enhanced.activity.MainActivity_" />
+    <activity
+      android:name="com.domotic.enhanced.activity.IpCamFullActivity_"
+      android:label="@string/activity_ipcam"
+      android:parentActivityName="com.domotic.enhanced.activity.MainActivity_" />
   </application>
 
 </manifest>

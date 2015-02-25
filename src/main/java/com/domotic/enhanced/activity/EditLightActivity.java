@@ -4,20 +4,12 @@ import static org.apache.commons.lang3.StringUtils.defaultString;
 import static org.apache.commons.lang3.StringUtils.trimToNull;
 
 import org.androidannotations.annotations.AfterTextChange;
-import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Bean;
-import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.Extra;
-import org.androidannotations.annotations.OptionsItem;
 import org.androidannotations.annotations.ViewById;
-import org.androidannotations.annotations.res.StringRes;
 import org.apache.commons.lang3.StringUtils;
 
-import android.app.Activity;
-import android.os.Bundle;
-import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -25,30 +17,18 @@ import com.domotic.enhanced.R;
 import com.domotic.enhanced.model.LightModel;
 import com.domotic.enhanced.repository.LightRepository;
 import com.domotic.enhanced.repository.impl.LightRepositoryImpl;
-import com.domotic.enhanced.util.ValidationUtils;
-import com.mobsandgeeks.saripaar.Rule;
-import com.mobsandgeeks.saripaar.Validator;
-import com.mobsandgeeks.saripaar.Validator.ValidationListener;
 import com.mobsandgeeks.saripaar.annotation.NumberRule;
 import com.mobsandgeeks.saripaar.annotation.NumberRule.NumberType;
 import com.mobsandgeeks.saripaar.annotation.Required;
 
 @EActivity(R.layout.edit_light)
-public class EditLightActivity extends Activity implements ValidationListener {
-  
-  @Extra
-  ActivityIntentType intentType;
+public class EditLightActivity extends AbstractValidationActivity<LightModel, Long> {
   
   @Extra
   LightModel model;
   
   @Bean(LightRepositoryImpl.class)
   LightRepository repository;
-  
-  @Bean
-  ValidationUtils validationUtils;
-  
-  private Validator validator;
   
   @ViewById(R.id.editText_editLightDeviceId)
   @Required(order = 1, messageResId = R.string.validation_required)
@@ -63,84 +43,46 @@ public class EditLightActivity extends Activity implements ValidationListener {
   @ViewById(R.id.editText_editLightDescription)
   EditText editTextDescription;
   
-  @ViewById(R.id.button_editLight)
-  Button buttonLight;
-  
   @AfterTextChange({
     R.id.editText_editLightDeviceId,
     R.id.editText_editLightName
   })
-  void clearAllValidation(TextView textView) {
-    textView.setError(null);
-  }
-  
-  @StringRes(R.string.label_add)
-  String labelAdd;
-  
-  @StringRes(R.string.label_edit)
-  String labelEdit;
-  
-  @AfterViews
-  void initViews() {
-    switch (intentType) {
-    case ADD:
-      buttonLight.setText(labelAdd);
-      break;
-    case EDIT:
-      editTextDeviceId.setText(model.getDeviceId().toString());
-      editTextName.setText(model.getName());
-      editTextDescription.setText(
-        "-".equals(StringUtils.trimToEmpty(model.getDescription())) ? "" : model.getDescription());
-      buttonLight.setText(labelEdit);
-      buttonLight.setTag(model.getId());
-      break;
-    }
-  }
-  
-  @OptionsItem(android.R.id.home)
-  void onBackAction() {
-    // action back button same behaviour
-    this.onBackPressed();
-  }
-  
-  @Override
-  protected void onCreate(Bundle savedInstanceState) {
-    super.onCreate(savedInstanceState);
-    validator = new Validator(this);
-    validator.setValidationListener(this);
-    getActionBar().setDisplayHomeAsUpEnabled(true);
-  }
-
-  @Click(R.id.button_editLight)
-  void buttonLight() {
-    validator.validate();
+  void clearValidation(TextView textView) {
+    super.clearAllValidation(textView);
   }
 
   @Override
-  public void onValidationSucceeded() {
-    switch (intentType) {
-    case ADD:
-      repository.add(parseLight());
-      break;
-    case EDIT:
-      repository.update(parseLight());
-      break;
-    }
-    finish();
+  void initAddViews() {
+    // ready
+  }
+
+  @Override
+  void initEditViews() {
+    setButtonTag(model.getId());
+    
+    editTextDeviceId.setText(model.getDeviceId().toString());
+    editTextName.setText(model.getName());
+    editTextDescription.setText(
+      "-".equals(StringUtils.trimToEmpty(model.getDescription())) ? "" : model.getDescription());
+  }
+
+  @Override
+  void onAddValidationSucceeded() {
+    repository.add(parseLight());
+  }
+
+  @Override
+  void onEditValidationSucceeded() {
+    repository.update(parseLight());
   }
   
   private LightModel parseLight() {
     LightModel light = new LightModel();
-    light.setId((Long) (buttonLight.getTag() != null ? buttonLight.getTag() : null));
+    light.setId(getButtonTag());
     light.setDeviceId(Integer.valueOf(editTextDeviceId.getText().toString()));
     light.setName(editTextName.getText().toString());
     light.setDescription(defaultString(trimToNull(editTextDescription.getText().toString()), "-"));
     return light;
-  }
-  
-  @Override
-  public void onValidationFailed(View failedView, Rule<?> failedRule) {
-    validationUtils.onValidationFailed(failedView, failedRule);
   }
   
 }

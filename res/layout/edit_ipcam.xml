@@ -1,64 +1,64 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-  android:layout_width="match_parent"
-  android:layout_height="match_parent"
-  android:orientation="vertical"
-  android:padding="20dp" >
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+  android:layout_width="fill_parent"
+  android:layout_height="fill_parent" >
 
-  <TextView
-    android:layout_width="match_parent"
+  <LinearLayout
+    android:layout_width="fill_parent"
     android:layout_height="wrap_content"
-    android:paddingLeft="4dp"
-    android:text="@string/label_url" />
+    android:orientation="vertical"
+    android:padding="20dp" >
 
-  <EditText
-    android:id="@+id/editText_editIpcamUrl"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:inputType="textMultiLine|textUri" />
+    <TextView
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:paddingLeft="4dp"
+      android:text="@string/label_url" />
 
-  <TextView
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:paddingLeft="4dp"
-    android:text="@string/label_username" />
+    <EditText
+      android:id="@+id/editText_editIpcamUrl"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:inputType="textMultiLine|textUri" />
 
-  <EditText
-    android:id="@+id/editText_editIpcamUsername"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:inputType="text" />
+    <TextView
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:paddingLeft="4dp"
+      android:text="@string/label_name" />
 
-  <TextView
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:paddingLeft="4dp"
-    android:text="@string/label_password" />
+    <EditText
+      android:id="@+id/editText_editIpcamName"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:inputType="text" />
 
-  <EditText
-    android:id="@+id/editText_editIpcamPassword"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:inputType="textPassword" />
+    <TextView
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:paddingLeft="4dp"
+      android:text="@string/label_username" />
 
-  <TextView
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:paddingLeft="4dp"
-    android:text="@string/label_name" />
+    <EditText
+      android:id="@+id/editText_editIpcamUsername"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:inputType="text" />
 
-  <EditText
-    android:id="@+id/editText_editIpcamName"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:inputType="text" />
+    <TextView
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:paddingLeft="4dp"
+      android:text="@string/label_password" />
 
-  <Button
-    android:id="@+id/button_editIpcam"
-    style="?android:attr/buttonStyleSmall"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_marginTop="20dp"
-    android:text="@string/label_none" />
+    <EditText
+      android:id="@+id/editText_editIpcamPassword"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:inputType="textPassword" />
 
-</LinearLayout>
+    <include layout="@layout/button_edit" />
+    
+  </LinearLayout>
+
+</ScrollView>

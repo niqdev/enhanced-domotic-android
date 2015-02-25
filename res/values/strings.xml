@@ -39,6 +39,7 @@
   <string name="label_username">Username</string>
   <string name="label_password">Password</string>
   <string name="label_url">Url</string>
+  <string name="label_no_items">No items</string>
   
   <!-- dialog -->
   <string name="dialog_delete_title_delete">Delete</string>

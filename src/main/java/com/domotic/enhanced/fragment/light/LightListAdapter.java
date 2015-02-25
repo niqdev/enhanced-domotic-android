@@ -1,53 +1,29 @@
 package com.domotic.enhanced.fragment.light;
 
-import java.util.List;
-
-import org.androidannotations.annotations.AfterInject;
 import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.EBean;
-import org.androidannotations.annotations.RootContext;
 
-import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
 
+import com.domotic.enhanced.fragment.AbstractListAdapter;
 import com.domotic.enhanced.model.LightModel;
+import com.domotic.enhanced.repository.CommonRepository;
 import com.domotic.enhanced.repository.LightRepository;
 import com.domotic.enhanced.repository.impl.LightRepositoryImpl;
 
 @EBean
-public class LightListAdapter extends BaseAdapter {
-
-  private List<LightModel> items;
+public class LightListAdapter extends AbstractListAdapter<LightModel> {
 
   //@Bean(LightRepositoryMockImpl.class)
   @Bean(LightRepositoryImpl.class)
   LightRepository repository;
-
-  @RootContext
-  Context context;
-
-  @AfterInject
-  void initAdapter() {
-    items = repository.findAll();
-  }
-
+  
   @Override
-  public int getCount() {
-    return items.size();
+  protected CommonRepository<LightModel, Long> getRepository() {
+    return repository;
   }
-
-  @Override
-  public LightModel getItem(int position) {
-    return items.get(position);
-  }
-
-  @Override
-  public long getItemId(int position) {
-    return position;
-  }
-
+  
   @Override
   public View getView(int position, View convertView, ViewGroup parent) {
     LightItemView itemView;
@@ -58,13 +34,6 @@ public class LightListAdapter extends BaseAdapter {
     }
     itemView.bind(getItem(position));
     return itemView;
-  }
-
-  @Override
-  public void notifyDataSetChanged() {
-    // refresh list
-    initAdapter();
-    super.notifyDataSetChanged();
   }
 
 }

@@ -1,5 +1,7 @@
 package com.domotic.enhanced.repository;
 
-public interface IpCamRepository {
+import com.domotic.enhanced.model.IpCamModel;
+
+public interface IpCamRepository extends CommonRepository<IpCamModel, Long> {
 
 }
