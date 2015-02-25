@@ -49,4 +49,9 @@ public class LightRepositoryMockImpl implements LightRepository {
     // do nothing
   }
 
+  @Override
+  public Long count() {
+    return 0L;
+  }
+
 }

@@ -33,4 +33,9 @@ public abstract class AbstractCommonRepository<M, K> implements CommonRepository
     getDao().deleteById(id);
   }
 
+  @Override
+  public Long count() {
+    return getDao().countOf();
+  }
+  
 }

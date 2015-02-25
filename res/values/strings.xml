@@ -29,6 +29,10 @@
   <string name="validation_required">Required field</string>
   <string name="validation_light">Number between 11 and 99 only</string>
   
+  <!-- error -->
+  <string name="error_connection">Check your internet connection</string>
+  <string name="error_url">Invalid url</string>
+  
   <!-- label -->
   <string name="label_add">Add</string>
   <string name="label_edit">Edit</string>

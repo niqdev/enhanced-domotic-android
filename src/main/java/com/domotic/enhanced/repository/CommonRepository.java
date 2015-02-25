@@ -11,5 +11,7 @@ public interface CommonRepository<M, K> {
   void update(M model);
   
   void delete(K id);
+  
+  Long count();
 
 }

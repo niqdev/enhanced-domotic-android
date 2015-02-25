@@ -1,19 +1,23 @@
 package com.domotic.enhanced.activity;
 
+import static org.apache.commons.lang3.StringUtils.isBlank;
+
 import java.io.IOException;
 import java.net.URI;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Background;
 import org.androidannotations.annotations.EActivity;
+import org.androidannotations.annotations.Extra;
+import org.androidannotations.annotations.OptionsItem;
 import org.androidannotations.annotations.UiThread;
 import org.androidannotations.annotations.ViewById;
+import org.androidannotations.annotations.res.StringRes;
 import org.apache.http.HttpResponse;
 import org.apache.http.HttpStatus;
 import org.apache.http.HttpVersion;
 import org.apache.http.auth.AuthScope;
 import org.apache.http.auth.UsernamePasswordCredentials;
-import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.CredentialsProvider;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
@@ -29,22 +33,29 @@ import org.slf4j.LoggerFactory;
 import android.app.Activity;
 import android.os.Bundle;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import com.domotic.enhanced.R;
-import com.domotic.enhanced.fragment.ipcam.IpCamFragment;
 import com.domotic.enhanced.mjpeg.MjpegInputStream;
 import com.domotic.enhanced.mjpeg.MjpegView;
+import com.domotic.enhanced.model.IpCamModel;
 
-/*
- * TODO full-screen
- */
 @EActivity(R.layout.activity_ipcam)
 public class IpCamFullActivity extends Activity {
   
-private static final Logger log = LoggerFactory.getLogger(IpCamFragment.class);
+  private static final Logger log = LoggerFactory.getLogger(IpCamFullActivity.class);
+  
+  @Extra
+  IpCamModel ipcam;
   
   @ViewById(R.id.linearLayout_ipcam)
   LinearLayout layout;
+  
+  @StringRes(R.string.error_connection)
+  String errorConnection;
+  
+  @StringRes(R.string.error_url)
+  String errorUrl;
   
   private MjpegView mv;
   
@@ -57,8 +68,8 @@ private static final Logger log = LoggerFactory.getLogger(IpCamFragment.class);
   @Override
   public void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
-    // TODO test
-    loadIpcam("http://plazacam.studentaffairs.duke.edu/mjpg/video.mjpg");
+    getActionBar().setDisplayHomeAsUpEnabled(true);
+    loadIpcam();
   }
 
   @Override
@@ -67,22 +78,37 @@ private static final Logger log = LoggerFactory.getLogger(IpCamFragment.class);
     mv.stopPlayback();
   }
   
+  @OptionsItem(android.R.id.home)
+  void onBackAction() {
+    // action back button same behaviour
+    this.onBackPressed();
+  }
+  
   @Background
-  void loadIpcam(String url) {
-    HttpClient httpclient = new DefaultHttpClient();
+  void loadIpcam() {
     try {
+      String url = ipcam.getUrl();
+      log.debug("load ipcam URL: {}", url);
+      
+      HttpClient httpclient = initHttpClient();
       HttpResponse response = httpclient.execute(new HttpGet(URI.create(url)));
       if (response.getStatusLine().getStatusCode() == HttpStatus.SC_OK) {
         showIpcam(new MjpegInputStream(response.getEntity().getContent()));
       }
-    } catch (ClientProtocolException e) {
-      log.error("loadIpcam-ClientProtocolException", e);
     } catch (IOException e) {
       log.error("loadIpcam-IOException", e);
+      showError(errorConnection);
+    } catch (Throwable e) {
+      log.error("loadIpcam-Throwable", e);
+      showError(errorUrl);
     }
   }
   
-  private HttpClient getHttpClient() {
+  private HttpClient initHttpClient() {
+    if (isBlank(ipcam.getName()) || isBlank(ipcam.getPassword())) {
+      return new DefaultHttpClient();
+    }
+    
     HttpParams httpParams = new BasicHttpParams();
     httpParams.setParameter(CoreProtocolPNames.PROTOCOL_VERSION, HttpVersion.HTTP_1_1);
     // increased timeout
@@ -90,12 +116,17 @@ private static final Logger log = LoggerFactory.getLogger(IpCamFragment.class);
     HttpConnectionParams.setSoTimeout(httpParams, 100000);
     
     CredentialsProvider provider = new BasicCredentialsProvider();
-    UsernamePasswordCredentials credentials = new UsernamePasswordCredentials("", "");
+    UsernamePasswordCredentials credentials = new UsernamePasswordCredentials(ipcam.getName(), ipcam.getPassword());
     provider.setCredentials(AuthScope.ANY, credentials);
         
     DefaultHttpClient httpClient = new DefaultHttpClient(httpParams);
-    // TODO httpClient.setCredentialsProvider(provider);
+    httpClient.setCredentialsProvider(provider);
     return httpClient;
+  }
+  
+  @UiThread
+  void showError(String message) {
+    Toast.makeText(this, message, Toast.LENGTH_LONG).show();
   }
   
   @UiThread
