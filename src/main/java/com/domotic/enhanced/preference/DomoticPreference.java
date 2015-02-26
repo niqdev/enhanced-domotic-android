@@ -1,13 +1,13 @@
 package com.domotic.enhanced.preference;
 
-import static org.androidannotations.annotations.sharedpreferences.SharedPref.Scope.APPLICATION_DEFAULT;
+import static org.androidannotations.annotations.sharedpreferences.SharedPref.Scope.UNIQUE;
 
 import org.androidannotations.annotations.sharedpreferences.DefaultRes;
 import org.androidannotations.annotations.sharedpreferences.SharedPref;
 
 import com.domotic.enhanced.R;
 
-@SharedPref(APPLICATION_DEFAULT)
+@SharedPref(UNIQUE)
 public interface DomoticPreference {
   
   @DefaultRes(value = R.string.preference_default_protocol, keyRes = R.string.preference_key_protocol)

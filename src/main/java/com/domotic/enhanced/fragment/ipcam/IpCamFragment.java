@@ -3,6 +3,7 @@ package com.domotic.enhanced.fragment.ipcam;
 import static com.domotic.enhanced.activity.ActivityIntentType.ADD;
 import static com.domotic.enhanced.activity.ActivityIntentType.EDIT;
 import static com.domotic.enhanced.fragment.dialog.AbstractDialogFragment.PARAM_VALUE;
+import static com.domotic.enhanced.util.PropertyUtils.PROP_MOCK_IPCAM;
 
 import org.androidannotations.annotations.AfterInject;
 import org.androidannotations.annotations.Bean;
@@ -11,8 +12,6 @@ import org.androidannotations.annotations.ItemClick;
 import org.androidannotations.annotations.ItemLongClick;
 import org.androidannotations.annotations.OptionsItem;
 import org.androidannotations.annotations.OptionsMenu;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import android.os.Bundle;
 import android.widget.BaseAdapter;
@@ -24,14 +23,14 @@ import com.domotic.enhanced.fragment.AbstractFragmentList;
 import com.domotic.enhanced.model.IpCamModel;
 import com.domotic.enhanced.repository.IpCamRepository;
 import com.domotic.enhanced.repository.impl.IpCamRepositoryImpl;
+import com.domotic.enhanced.util.PropertyUtils;
 
 @EFragment(R.layout.fragment_list)
 @OptionsMenu(R.menu.menu_ipcam)
 public class IpCamFragment extends AbstractFragmentList<IpCamModel> {
   
-  private static final Logger log = LoggerFactory.getLogger(IpCamFragment.class);
-  
-  private static final boolean MOCK = true;
+  @Bean
+  PropertyUtils propertyUtils;
   
   @Bean(IpCamListAdapter.class)
   BaseAdapter adapter;
@@ -46,8 +45,7 @@ public class IpCamFragment extends AbstractFragmentList<IpCamModel> {
   
   @AfterInject
   void initMock() {
-    if (MOCK && repository.count() == 0) {
-      
+    if (propertyUtils.readBoolean(PROP_MOCK_IPCAM) && repository.count() == 0) {
       IpCamModel ipcam1 = new IpCamModel();
       ipcam1.setUrl("http://plazacam.studentaffairs.duke.edu/mjpg/video.mjpg");
       ipcam1.setName("test1");
